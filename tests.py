@@ -3,16 +3,19 @@ import numpy as np
 import joblib
 
 # Load model and metadata
+# this model is trained on 24-25 season data only
 model_data = joblib.load('./models/random_forest_24_25.joblib')
 model = model_data['model']
 trained_features = model_data['feature_names']
 
-df = pd.read_csv('./merged_data/24_25_allstats.csv')
+# select stats to test on
+# currently using model trained on 2025 season to predict 2024 season shots
+df = pd.read_csv('./merged_data/23_24_allstats.csv')
 df = df.drop(columns=['SEASON_2', 'GAME_ID', 'ZONE_ABB', 'EVENT_TYPE', 'GAME_DATE',
                      'PLAYER_ID', 'TEAM_ID', 'TEAM_NAME'])
 
 # choose player
-player_name = "LeBron James"
+player_name = "Tyrese Haliburton"
 
 player_rows = df[df['PLAYER_NAME'] == player_name].copy()
 player_y = player_rows['SHOT_MADE'].astype(int)
@@ -34,16 +37,18 @@ total = len(player_y)
 print(f"Correct Predictions: {correct} / {total}")
 print(f"Accuracy for {player_name}: {correct / total}")
 
-print("\nPlayer Shot Predictions:")
-print(player_rows[[
+# find examples that were incorrectly classified
+mismatches = player_rows[player_rows['SHOT_MADE'] != player_rows['PREDICTED_MADE']]
+
+print("\nMismatched Predictions (SHOT_MADE != PREDICTED_MADE):")
+print(mismatches[[
     'PLAYER_NAME', 
     'FG_PCT', 
     'FG3_PCT', 
     'ACTION_TYPE', 
     'SHOT_TYPE', 
     'SHOT_DISTANCE', 
-    'LOC_Y', 
-    'LOC_X', 
+    'ZONE_NAME'
     'SHOT_MADE', 
     'PREDICTED_MADE', 
     'PREDICTED_PROB'

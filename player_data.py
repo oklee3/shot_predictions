@@ -3,7 +3,7 @@ from tqdm import tqdm
 import time
 from nba_api.stats.endpoints import PlayerDashboardByYearOverYear
 
-def get_player_stats(player_id, season='2024-25'):
+def get_player_stats(player_id, season='2023-24'):
     try:
         dash = PlayerDashboardByYearOverYear(player_id=player_id, season=season)
         df = dash.get_data_frames()[1]
@@ -15,7 +15,7 @@ def get_player_stats(player_id, season='2024-25'):
         print(f"Error for player_id {player_id}: {e}")
         return None
 
-original_df = pd.read_csv("./raw_data/NBA_2025_Shots.csv")
+original_df = pd.read_csv("./raw_data/NBA_2024_Shots.csv")
 unique_ids = original_df['PLAYER_ID'].unique()
 
 all_stats = []
@@ -28,7 +28,7 @@ for pid in tqdm(unique_ids, desc="Fetching Player Stats"):
 if all_stats:
     stats_combined = pd.concat(all_stats, ignore_index=True)
     merged_df = original_df.merge(stats_combined, on='PLAYER_ID', how='left')
-    merged_df.to_csv("./merged_data/24_25_allstats.csv", index=False)
-    print("Saved merged stats to '24_25_allstats.csv'")
+    merged_df.to_csv("./merged_data/23_24_allstats.csv", index=False)
+    print("Saved merged stats to '23_24_allstats.csv'")
 else:
     print("No stats retrieved.")
