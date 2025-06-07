@@ -15,7 +15,7 @@ df = df.drop(columns=['SEASON_2', 'GAME_ID', 'ZONE_ABB', 'EVENT_TYPE', 'GAME_DAT
                      'PLAYER_ID', 'TEAM_ID', 'TEAM_NAME'])
 
 # choose player
-player_name = "Tyrese Haliburton"
+player_name = "Dyson Daniels"
 
 player_rows = df[df['PLAYER_NAME'] == player_name].copy()
 player_y = player_rows['SHOT_MADE'].astype(int)
@@ -48,7 +48,7 @@ print(mismatches[[
     'ACTION_TYPE', 
     'SHOT_TYPE', 
     'SHOT_DISTANCE', 
-    'ZONE_NAME'
+    'ZONE_NAME',
     'SHOT_MADE', 
     'PREDICTED_MADE', 
     'PREDICTED_PROB'
