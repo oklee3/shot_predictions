@@ -14,7 +14,6 @@ df = pd.read_csv('./merged_data/23_24_allstats.csv')
 df = df.drop(columns=['SEASON_2', 'GAME_ID', 'ZONE_ABB', 'EVENT_TYPE', 'GAME_DATE',
                      'PLAYER_ID', 'TEAM_ID', 'TEAM_NAME'])
 
-# choose player
 player_name = "Dyson Daniels"
 
 player_rows = df[df['PLAYER_NAME'] == player_name].copy()
