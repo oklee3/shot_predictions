@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
 
-df = pd.read_csv('./merged_data/24_25_allstats.csv')
+df = pd.read_csv('./raw_data/NBA_2025_Shots.csv')
 df = df.drop(columns=['SEASON_2', 'GAME_ID', 'ZONE_ABB', 'EVENT_TYPE', 'GAME_DATE',
                      'PLAYER_ID', 'TEAM_ID', 'TEAM_NAME'])
 
