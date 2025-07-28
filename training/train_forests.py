@@ -23,7 +23,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X_encoded, y, test_size=0.2, stratify=y, random_state=42
 )
 
-model = RandomForestClassifier(n_estimators=100, random_state=42, verbose=1, n_jobs=-1)  # Increased trees
+model = RandomForestClassifier(n_estimators=100, random_state=42, verbose=1, n_jobs=-1)
 model.fit(X_train, y_train)
 
 joblib.dump({
